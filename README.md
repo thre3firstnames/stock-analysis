@@ -55,6 +55,7 @@ In this incarnation of the code, I used the ```tickers``` array within a nested 
 
 In the refactored code, I created an index of ```tickers``` which allowed each ticker to be used in the searching of the data but included code to advance the index every time a different ticker value was reached. Using this method, and by assigning values to each of the output arrays, the program looped over the dataset only once, saving time and making the program much cleaner. 
 
+#####*comments have been removed for length*
 ```
     For i = tickerIndex To 11
 
@@ -91,10 +92,9 @@ In the refactored code, I created an index of ```tickers``` which allowed each t
     Next i
 ```
 
+### Summary
+The advantages of refactoring code are evidenced by both the final performance times and the cleanliness of the refactored product. There is a much lower chance that a different coder would misunderstand how I came to write the final product based on the information contained within the refactored code. 
 
+Disadvantages include the possibility of breaking a working program, not understanding the original coder’s intentions (if there are missing comments on those lines that pull a tremendous amount of weight or the task’s instructions were unclear), and using the tools contained within VBA in unfamiliar ways. 
 
-###Summary
-*( In a summary statement, address the following questions.
-1. What are the advantages or disadvantages of refactoring code?
-2. How do these pros and cons apply to refactoring the original VBA script?)*
-
+While the bones of this refactored product were contained within the original script, it held enough clutter to be difficult to sift through to find the important points. Once it became clear that this script would loop only once through all of the rows in the spreadsheet, the purpose of indexing the ```ticker``` value, and moving the output values outside of the loop made sense. 
