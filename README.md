@@ -17,7 +17,7 @@ While **DQ** was the high-performing victor in 2017, its loss in 2018 also makes
 ![Pre_Refactoring_2017.png](/Resources/Pre_Refactoring_2017.png)
 ![Pre_Refactoring_2018.png](/Resources/Pre_Refactoring_2018.png)
 
-In this incarnation of the code, we used the ```tickers``` array within a nested ```For``` loop and forced the code to look at every line of the dataset each time a new ticker was referenced. This made the program unnecessarily cumbersome, hence the longer execution times pictured above. 
+In this incarnation of the code, I used the ```tickers``` array within a nested ```For``` loop and forced the code to look at every line of the dataset each time a new ticker was referenced. This made the program unnecessarily cumbersome, hence the longer execution times pictured above. 
 
 ```
     For i = 0 To 11
@@ -53,10 +53,43 @@ In this incarnation of the code, we used the ```tickers``` array within a nested
 ![VBA_Challenge_2017.png](/Resources/VBA_Challenge_2017.png)
 ![VBA_Challenge_2018.png](/Resources/VBA_Challenge_2018.png)
 
+In the refactored code, I created an index of ```tickers``` which allowed each ticker to be used in the searching of the data but included code to advance the index every time a different ticker value was reached. Using this method, and by assigning values to each of the output arrays, the program looped over the dataset only once, saving time and making the program much cleaner. 
 
-*(Using images and examples of your code:
-1. compare the stock performance between 2017 and 2018
-2. and the execution times of the original script and the refactored script.)*
+```
+    For i = tickerIndex To 11
+
+        tickerVolumes(i) = 0
+    
+    Next i
+
+    For i = 2 To RowCount
+
+        tickerVolumes(tickerIndex) = tickerVolumes(tickerIndex) + Cells(i, 8).Value
+       
+        If Cells(i - 1, 1).Value <> tickers(tickerIndex) Then
+        
+            tickerStartingPrices(tickerIndex) = Cells(i, 6).Value
+        
+         End If
+
+        If Cells(i + 1, 1).Value <> tickers(tickerIndex) Then
+        
+            tickerEndingPrices(tickerIndex) = Cells(i, 6).Value
+            
+            tickerIndex = tickerIndex + 1
+             
+        End If
+
+    Next i
+    
+    For i = 0 To 11
+    
+     Worksheets("All Stocks Analysis").Activate
+            Cells(4 + i, 1).Value = tickers(i)
+            Cells(4 + i, 2).Value = tickerVolumes(i)
+            Cells(4 + i, 3).Value = tickerEndingPrices(i) / tickerStartingPrices(i) - 1
+    Next i
+```
 
 
 
@@ -64,3 +97,4 @@ In this incarnation of the code, we used the ```tickers``` array within a nested
 *( In a summary statement, address the following questions.
 1. What are the advantages or disadvantages of refactoring code?
 2. How do these pros and cons apply to refactoring the original VBA script?)*
+
